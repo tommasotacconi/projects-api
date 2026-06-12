@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('APP_VUE_URL')],
+    'allowed_origins' => [env('APP_VUE_URL') . 5173, env('APP_VUE_URL') . 5174, 'tt-dev.tacconiweb.com'],
 
     'allowed_origins_patterns' => [],
 
