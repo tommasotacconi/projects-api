@@ -9,9 +9,14 @@ class Type extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     // Functions that states the relationship of Type with Project
     // and create the connection between this entity data
-    public function projects () {
+    public function projects()
+    {
         return $this->hasMany(Project::class);
     }
 }
