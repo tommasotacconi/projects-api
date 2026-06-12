@@ -14,16 +14,14 @@ class TypeSeeder extends Seeder
     public function run(): void
     {
         $types = [
-					'front end',
-					'back end',
-					'full stack',
-					'database',
-				];
+            'front end',
+            'back end',
+            'full stack',
+            'database',
+        ];
 
-				foreach ($types as $type) {
-					$new_type = new Type();
-					$new_type->name = $type;
-					$new_type->save();
-				}
+        foreach ($types as $type) {
+            (new Type(['name' => $type]))->save();
+        }
     }
 }
