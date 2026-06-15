@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [...array_map(fn ($port) => env('VUE_APP_URL', 'http://localhost') . ':' . $port, [5173, 5174, 4173]), 'tt-dev.tacconiweb.com'],
+    'allowed_origins' => array_filter([...array_map(fn ($port) => 'http://localhost' . ':' . $port, [5173, 5174, 4173]), env('VUE_APP_URL')]),
 
     'allowed_origins_patterns' => [],
 
