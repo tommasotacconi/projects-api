@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('APP_VUE_URL') . 5173, env('APP_VUE_URL') . 5174, 'tt-dev.tacconiweb.com'],
+    'allowed_origins' => [...array_map(fn ($port) => env('VUE_APP_URL') . ':' . $port, [5173, 5174, 4173]), 'tt-dev.tacconiweb.com'],
 
     'allowed_origins_patterns' => [],
 
