@@ -44,6 +44,10 @@
 			<input type="date" class="form-control" id="end-date-input" placeholder="" name="end_date">
 		</div>
 		<div class="col-12">
+			<label for="url-input" class="form-label">URL progetto</label>
+			<input type="url" class="form-control" id="url-input" name="url" value="{{ old('url') }}">
+		</div>
+		<div class="col-12">
 			Technologies:
 			@foreach ($technologies as $technology)
 				<div class="form-check col-6">

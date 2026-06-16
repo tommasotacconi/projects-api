@@ -48,6 +48,10 @@
         <label for="end-date-input" class="form-label">Data di fine</label>
         <input type="date" class="form-control" id="end-date-input" placeholder="" name="end_date" value="{{ $editing_project->end_date }}">
       </div>
+      <div class="col-12">
+        <label for="url-input" class="form-label">URL progetto</label>
+        <input type="url" class="form-control" id="url-input" name="url" value="{{ old('url', $editing_project->url) }}">
+      </div>
 			<div class="col-12">
 				Technologies:
 				{{-- @dd($editing_project->technologies) --}}

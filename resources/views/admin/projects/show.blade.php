@@ -25,6 +25,11 @@
 	<div class="project-property">
 		<b>Data d'inizio</b>: {{ $project->start_date }} <b class="ms-3">Data di fine</b>: {{ $project->end_date }}
 	</div>
+	@if ($project->url)
+		<div class="project-property">
+			<b>URL</b>: <a href="{{ $project->url }}" target="_blank" rel="noopener noreferrer">{{ $project->url }}</a>
+		</div>
+	@endif
 	<div class="project-property">
 		{{-- Type added by means of relation functions in controller  --}}
 		<b>Technologies</b>:

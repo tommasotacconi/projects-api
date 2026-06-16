@@ -32,7 +32,8 @@ class ProjectRequest extends FormRequest
 			'arguments' => ['required', 'string'],
 			'start_date' => ['date'],
 			'end_date' => ['date'],
-			'img_url' => ['file', 'image', 'max:25000']
+			'img_url' => ['file', 'image', 'max:25000'],
+			'url' => ['nullable', 'url', 'max:2048']
 		];
 	}
 }
