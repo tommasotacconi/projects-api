@@ -32,8 +32,8 @@
 			<input type="text" class="form-control" id="authors-input" name="authors">
 		</div>
 		<div class="col-12">
-			<label for="arguments-input" class="form-label">Argomenti</label>
-			<textarea type="text" class="form-control" id="arguments-input" name="arguments" rows="4"></textarea>
+			<label for="purpose-input" class="form-label">Scopo</label>
+			<textarea type="text" class="form-control" id="purpose-input" name="purpose" rows="4"></textarea>
 		</div>
 		<div class="col-6 col-sm-4 col-md-4">
 			<label for="start-date-input" class="form-label">Data d'inizio</label>

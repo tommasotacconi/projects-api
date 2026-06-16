@@ -13,7 +13,7 @@ class Project extends Model
 		'name',
 		'type_id',
 		'authors',
-		'arguments',
+		'purpose',
 		'start_date',
 		'end_date',
 		'img_url',

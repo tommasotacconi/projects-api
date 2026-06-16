@@ -29,7 +29,7 @@ class ProjectRequest extends FormRequest
 			'name' => ['required', 'string', 'max:50'],
 			'type_id' => ['required', 'numeric', 'integer', 'min:1', 'max:4' ],
 			'authors' => ['string', 'max:255'],
-			'arguments' => ['required', 'string'],
+			'purpose' => ['required', 'string'],
 			'start_date' => ['date'],
 			'end_date' => ['date'],
 			'img_url' => ['file', 'image', 'max:25000'],

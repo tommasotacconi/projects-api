@@ -37,8 +37,8 @@
         <input type="text" class="form-control" id="authors-input" name="authors" value="{{ $editing_project->authors }}">
       </div>
       <div class="col-12">
-        <label for="arguments-input" class="form-label">Argomenti</label>
-        <textarea type="text" class="form-control" id="arguments-input" name="arguments" rows="4">{{ $editing_project->arguments }}</textarea>
+        <label for="purpose-input" class="form-label">Scopo</label>
+        <textarea type="text" class="form-control" id="purpose-input" name="purpose" rows="4">{{ $editing_project->purpose }}</textarea>
       </div>
       <div class="col-6 col-sm-4 col-md-4">
         <label for="start-date-input" class="form-label">Data d'inizio</label>
@@ -80,8 +80,8 @@
 						<b>Authors</b>: {{ $project->authors }}
 				</div>
 				<div class="project-property">
-						<b>Arguments</b>
-						<p>{{ $project->arguments }}</p>
+						<b>Purpose</b>
+						<p>{{ $project->purpose }}</p>
 				</div>
 				<div class="project-property">
 						<b>Linguaggi di programmazione</b>: {{ $project->programming_languages }}

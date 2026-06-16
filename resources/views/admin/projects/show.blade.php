@@ -19,8 +19,8 @@
 		@endif
 	</div>
 	<div class="project-property">
-		<b>Arguments</b>
-		<p>{{ $project->arguments }}</p>
+		<b>Purpose</b>
+		<p>{{ $project->purpose }}</p>
 	</div>
 	<div class="project-property">
 		<b>Data d'inizio</b>: {{ $project->start_date }} <b class="ms-3">Data di fine</b>: {{ $project->end_date }}

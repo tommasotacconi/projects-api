@@ -10,7 +10,7 @@
 				<tr>
 					<th scope="col">Nome</th>
 					<th scope="col">Autori</th>
-					<th scope="col">Argomenti</th>
+					<th scope="col">Scopo</th>
 					<th scope="col">Data d'inizio</th>
 					<th scope="col">Data di fine</th>
 				</tr>
@@ -20,7 +20,7 @@
 				<tr>
 					<td>{{ $project->name }}</td>
 					<td>{{ $project->authors }}</td>
-					<td>{{ $project->arguments }}</td>
+					<td>{{ $project->purpose }}</td>
 					<td>{{ $project->start_date }}</td>
 					<td>{{ $project->end_date }}</td>
 					{{-- buttons table data --}}
@@ -52,4 +52,3 @@
 @endsection
 
 <!-- final commit -->
-
