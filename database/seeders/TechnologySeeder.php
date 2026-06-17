@@ -13,24 +13,10 @@ class TechnologySeeder extends Seeder
      */
     public function run(): void
     {
-        $technologies = [
-            'Javascript',
-            'Vue',
-            'React',
-            'Node.js',
-            'Express',
-            'EJS',
-            'PHP',
-            'Laravel',
-            'MySQL',
-            'Kotlin',
-            'Java',
-            'React Native',
-            'WordPress'
-        ];
+        $technologies = Technology::ORDERED_NAMES;
 
         foreach ($technologies as $tech) {
-            (new Technology(['name' => $tech]))->save();
+            Technology::firstOrCreate(['name' => $tech]);
         }
     }
 }

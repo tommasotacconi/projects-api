@@ -7,7 +7,6 @@ use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
@@ -24,7 +23,7 @@ class ProjectController extends Controller
 
 	public function create() {
 		$types = Type::all();
-		$technologies = Technology::all();
+		$technologies = $this->getOrderedTechnologies();
 		return view('admin.projects.create', compact('types', 'technologies'));
 	}
 
@@ -43,7 +42,7 @@ class ProjectController extends Controller
 	public function edit(string $id) {
 		$editing_project = Project::findOrFail($id);
 		$types = Type::all();
-		$technologies = Technology::all();
+		$technologies = $this->getOrderedTechnologies();
 		return view('admin.projects.edit', compact('editing_project', 'types', 'technologies'));
 	}
 
@@ -65,5 +64,10 @@ class ProjectController extends Controller
 		$deleting_project = Project::findOrFail($id);
 		$deleting_project->delete();
 		return redirect()->route('admin.projects.index');
+	}
+
+	private function getOrderedTechnologies()
+	{
+		return Technology::ordered()->get();
 	}
 }
