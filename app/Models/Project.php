@@ -7,25 +7,32 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-	use HasFactory;
+    use HasFactory;
 
-	protected $fillable = [
-		'name',
-		'type_id',
-		'authors',
-		'purpose',
-		'start_date',
-		'end_date',
-		'img_url',
-		'url'
-	];
+    protected $fillable = [
+        'name',
+        'type_id',
+        'authors',
+        'purpose',
+        'start_date',
+        'end_date',
+        'img_url',
+        'url'
+    ];
 
-	public function type() {
-			return $this->belongsTo(Type::class);
-	}
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
 
-	public function technologies() {
-		return $this->belongsToMany(Technology::class)
-			->ordered();
-	}
+    public function technologies()
+    {
+        return $this->belongsToMany(Technology::class)
+            ->ordered();
+    }
+
+    public function translations()
+    {
+        return $this->hasMany(ProjectTranslation::class);
+    }
 }
