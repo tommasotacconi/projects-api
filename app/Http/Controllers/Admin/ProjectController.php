@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Actions\StoreProjImg;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectRequest;
 use App\Models\Project;
@@ -11,63 +12,99 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
-	public function index() {
-		$projects = Project::all();
-		return view('admin.projects.index', compact('projects'));
-	}
+    public function __construct(protected StoreProjImg $storer)
+    {
+    }
 
-	public function show(string $id) {
-		$project = Project::findOrFail($id);
-		return view('admin.projects.show', compact('project'));
-	}
+    public function index()
+    {
+        $projects = Project::with('translations')->get();
 
-	public function create() {
-		$types = Type::all();
-		$technologies = $this->getOrderedTechnologies();
-		return view('admin.projects.create', compact('types', 'technologies'));
-	}
+        return view('admin.projects.index', compact('projects'));
+    }
 
-	public function store(ProjectRequest $request) {
-		$new_project_data = $request->validated();
+    public function show(string $id)
+    {
+        $project = Project::with('translations')->findOrFail($id);
 
-		if (isset($new_project_data['img_url'])) {
-			$file_path = Storage::disk('public')->put("images/projects", $request->img_url);
-			$new_project_data['img_url'] = $file_path;
-		}
-		$new_project = Project::create($new_project_data);
-		$new_project->technologies()->sync($request['technologies']);
-		return redirect()->route('admin.projects.show', ['id' => $new_project->id]);
-	}
+        return view('admin.projects.show', compact('project'));
+    }
 
-	public function edit(string $id) {
-		$editing_project = Project::findOrFail($id);
-		$types = Type::all();
-		$technologies = $this->getOrderedTechnologies();
-		return view('admin.projects.edit', compact('editing_project', 'types', 'technologies'));
-	}
+    public function create()
+    {
+        $availableLocales = ['IT', 'EN', 'ES'];
+        $types = Type::all();
+        $technologies = $this->getOrderedTechnologies();
 
-	public function update(ProjectRequest $request, string $id) {
-		$edited_project_data = $request->validated();
+        return view('admin.projects.create', compact('availableLocales', 'types', 'technologies'));
+    }
 
-		$editing_project = Project::findOrFail($id);
-		if (isset($edited_project_data['img_url'])) {
-			if ($editing_project->img_url) Storage::disk('public')->delete($editing_project->img_url);
-			$file_path = Storage::disk('public')->put("images/projects/", $request->img_url);
-			$edited_project_data['img_url'] = $file_path;
-		}
-		$editing_project->technologies()->sync($request['technologies']);
-		$editing_project->update($edited_project_data);
-		return redirect()->route('admin.projects.show', ['id' => $editing_project->id]);
-	}
+    public function store(ProjectRequest $request)
+    {
+        $validated = $request->validated();
+        if (isset($validated['img'])) {
+            $validated['img_url'] = $this->storer->handle($validated['img']);
+        }
 
-	public function destroy(string $id) {
-		$deleting_project = Project::findOrFail($id);
-		$deleting_project->delete();
-		return redirect()->route('admin.projects.index');
-	}
+        $newProj = Project::create($validated);
+        foreach ($validated['translations'] as $locale => $tran) {
+            $newProj->translations()->create([
+                'locale' => $locale,
+                ...$tran
+            ]);
+        }
+        if (isset($validated['technologies'])) {
+            $newProj->technologies()->sync($validated['technologies']);
+        }
 
-	private function getOrderedTechnologies()
-	{
-		return Technology::ordered()->get();
-	}
+        return redirect()->route('admin.projects.show', ['id' => $newProj->id]);
+    }
+
+    public function edit(string $id)
+    {
+        $project = Project::with(['translations', 'technologies', 'type'])->findOrFail($id);
+        $availableLocales = ['IT', 'EN', 'ES'];
+        $types = Type::all();
+        $technologies = $this->getOrderedTechnologies();
+
+        return view('admin.projects.edit', compact('project', 'availableLocales', 'types', 'technologies'));
+    }
+
+    public function update(ProjectRequest $request, string $id)
+    {
+        $toEditProj = Project::findOrFail($id);
+
+        $validated = $request->validated();
+        if (isset($validated['img'])) {
+            if ($toEditProj->img_url) {
+                Storage::disk('public')->delete($toEditProj->img_url);
+            }
+            $validated['img_url'] = $this->storer->handle($validated['img']);
+        }
+
+        $toEditProj->update($validated);
+        foreach ($validated['translations'] as $locale => $tran) {
+            $toEditT9n = $toEditProj->translations()->firstOrCreate(
+                ['locale' => $locale],
+                [...$tran]
+            );
+            $toEditT9n->update([...$tran]);
+        }
+        $toEditProj->technologies()->sync($validated['technologies'] ?? null);
+
+        return redirect()->route('admin.projects.show', ['id' => $toEditProj->id]);
+    }
+
+    public function destroy(string $id)
+    {
+        $toDeleteProj = Project::findOrFail($id);
+        $toDeleteProj->delete();
+
+        return redirect()->route('admin.projects.index');
+    }
+
+    private function getOrderedTechnologies()
+    {
+        return Technology::ordered()->get();
+    }
 }
