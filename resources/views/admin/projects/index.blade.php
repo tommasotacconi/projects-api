@@ -20,7 +20,7 @@
 				<tr>
 					<td>{{ $project->name }}</td>
 					<td>{{ $project->authors }}</td>
-					<td>{{ $project->purpose }}</td>
+					<td>{{ $project->translations[0]->purpose ?? null}}</td>
 					<td>{{ $project->start_date }}</td>
 					<td>{{ $project->end_date }}</td>
 					{{-- buttons table data --}}
@@ -35,11 +35,6 @@
 						</form>
 					</td>
 					{{-- Project nullable fields --}}
-					{{-- @if ($train->on_time)
-					<td>&bull;</td>
-					@else
-					<td></td>
-					@endif --}}
 				</tr>
 			@empty
 				<tr>
