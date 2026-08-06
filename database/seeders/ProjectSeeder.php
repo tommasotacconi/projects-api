@@ -24,7 +24,7 @@ class ProjectSeeder extends Seeder
 			for ($j = 0; $j< 5; $j++) {
 					$new_project->authors .= " $faker->name()";
 			};
-			$new_project->purpose = $faker->text();
+			// $new_project->purpose = $faker->text();
 			$new_project->start_date = $faker->dateTimeThisYear();
 			$new_project->end_date = $faker->dateTimeThisYear();
 			$new_project->save();

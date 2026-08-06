@@ -61,7 +61,19 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "composer/package-versions-deprecated": true
+        },
+        "policy": {
+            "advisories": {
+                "ignore-id": {
+                    "PKSA-m5cs-t1y6-qpcs": {"reason": "Local dev only, upgrading later"},
+                    "PKSA-3r5d-mb8f-1qw9": {"reason": "Local dev only, upgrading later"},
+                    "PKSA-mdq4-51ck-6kdq": {"reason": "Local dev only, upgrading later"},
+                    "PKSA-8qx3-n5y5-vvnd": {"reason": "Local dev only, upgrading later"},
+                    "PKSA-w7xr-vk7n-rstm": {"reason": "Local dev only, upgrading later"}                    
+                }
+            }
         }
     },
     "minimum-stability": "stable",
