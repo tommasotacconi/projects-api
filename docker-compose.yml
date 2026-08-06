@@ -6,13 +6,12 @@ services:
     working_dir: /app
     volumes:
       - .:/app
-      - /var/www/html/vendor
+      - vendor_data:/app/vendor
     ports:
-      - "8000:8000"
+      - '8000:8000'
     command: php artisan serve --host=0.0.0.0 --port=8000
     depends_on:
       - db
-
 
   vite:
     build:
@@ -23,7 +22,7 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - "5173:5173"
+      - '5174:5174'
     command: npm run dev
 
   db:
@@ -32,12 +31,11 @@ services:
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: yes
       MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
       - '3306:3306'
     volumes:
       - db_data:/var/lib/mysql
 
 volumes:
-    db_data:
+  db_data:
+  vendor_data:
