@@ -1,0 +1,21 @@
+services:
+  laravel:
+    build:
+      context: .
+      dockerfile: containers/laravel/Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+
+  vite:
+    build:
+      context: .
+      dockerfile: containers/vite/Dockerfile
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
