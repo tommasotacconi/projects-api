@@ -11,7 +11,8 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::all()->with('translations')->map(fn ($proj) => new ProjectResource($proj));
+
         return response()->json([
             'success' => true,
             'results' => $projects
